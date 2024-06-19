@@ -2,7 +2,7 @@ package hello.hello_spring.domain;
 
 public class Member {
 
-    // 1. 요구사항
+    // 1. 요구사항 vo 역할
     private Long id; //시스템이 저장하는 id
     private String name;
 
