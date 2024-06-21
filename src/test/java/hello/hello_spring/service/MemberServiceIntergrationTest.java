@@ -3,39 +3,34 @@ package hello.hello_spring.service;
 import hello.hello_spring.domain.Member;
 import hello.hello_spring.repository.MemberRepository;
 import hello.hello_spring.repository.MemoryMemberRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class MemberServiceTest {
+@SpringBootTest // 스프링 테스트(통합 테스트). 스프링 컨테이너와 테스트를 함께 실행한다
+@Transactional // 테스트 케이스에 있으면! 테스트 실행 시 트랜잭션 먼저 실행 - DB 데이터 넣은 후 -> 테스트 끝나면 롤백!(메서드 하나하나 적용)
+class MemberServiceIntergrationTest {
 
-    // 순수 자바 테스트(단위 테스트)* 중요
-    // 테스트는 한글로 적어도 무방(빌드 시 코드에 포함되지 않음)
-    MemberService memberService;
-    MemoryMemberRepository memberRepository;
+    // 테스트는 한글로 적어도 무방(빌드 시 코드에 포함되지 않음) + Autowired 편한 대로 써도 됨 (테스트)
+    @Autowired MemberService memberService;
+    @Autowired MemberRepository memberRepository; // 구현체는 스프링이 config 한 곳에서 올라옴
 
-    @BeforeEach // 같은 memoryRepository 사용
-    public void beforeEach(){
-        memberRepository = new MemoryMemberRepository();
-        memberService = new MemberService(memberRepository);
-    }
-
-    @AfterEach // Clear코드
+/*    @AfterEach // Clear코드
     public void afterEach(){
         memberRepository.clearStore();
-    }
+    }*/
 
     @Test
     void 회원가입() {
         //given 주어진 상황
         Member member = new Member();
-        member.setName("hello");
+        member.setName("spring");
 
         //when 실행했을 때
         Long saveId = memberService.join(member);
@@ -60,25 +55,6 @@ class MemberServiceTest {
         assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다."); // 메세지 검증
         // () -> memberService.join(member2)) 1. 로직 실행 |
         // assertThrows(IllegalStateException.class 2. 예외 발생해야 함
-        
-/* try catch문 방법
 
-        try {
-            memberService.join(member2);
-            fail("예외가 발생해야 합니다");
-        } catch (IllegalStateException e){
-            assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다."); //service 예외 메세지와 같아야 함 검증
-        }
-*/
-        // then
-    }
-
-    @Test
-
-    void findMembers() {
-    }
-
-    @Test
-    void findOne() {
     }
 }
