@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,6 +28,7 @@ class MemberServiceIntergrationTest {
     }*/
 
     @Test
+    //@Commit DB반영 - 눈으로 보임
     void 회원가입() {
         //given 주어진 상황
         Member member = new Member();

@@ -59,7 +59,7 @@ class MemberServiceTest {
         IllegalStateException e = assertThrows(IllegalStateException.class, () -> memberService.join(member2));
         assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다."); // 메세지 검증
         // () -> memberService.join(member2)) 1. 로직 실행 |
-        // assertThrows(IllegalStateException.class 2. 예외 발생해야 함
+        // assertThrowsIllegalStateException.class 2. 예외 발생해야 함
         
 /* try catch문 방법
 
@@ -69,8 +69,7 @@ class MemberServiceTest {
         } catch (IllegalStateException e){
             assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다."); //service 예외 메세지와 같아야 함 검증
         }
-*/
-        // then
+        // then*/
     }
 
     @Test
